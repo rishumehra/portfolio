@@ -13,6 +13,9 @@ I’m a passionate technical writer with over **10 years** of **experience** **c
 * 📌 [AI Configuration Hub](https://help.ivanti.com/ht/help/en_US/ISM/2025/admin-user/Content/AITSM/AI-Configuration-Hub.htm) - Comprehensive documentation on setting up and managing AI-powered features in Ivanti Service Manager.
 * 📌 [Setting up Modern Surveys](https://help.ivanti.com/ht/help/en_US/ISM/2024/admin-user/Content/Configure/Surveys/Modern-Survey.htm) - A step-by-step guide for configuring modern surveys in Ivanti Service Manager.
 
+> ### Highlights:
+> Collaborated closely with engineers and product leads to document **Ivanti Neurons for ITSM**, including **AI-powered features** such as **GenAI-based incident summarization and knowledge article generation**. Created user **onboarding guides**, **REST API** content, and **Admin UI** walkthroughs.
+
 ### **🔗 API & Automation Documentation**
 
 * 🚀 [Header Injection Support on BrowserStack Automate](https://www.browserstack.com/docs/automate/selenium/custom-header#python) - Inject custom headers in Selenium-based automated tests.
