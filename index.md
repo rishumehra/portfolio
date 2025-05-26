@@ -4,6 +4,8 @@
 
 I’m a passionate technical writer with over **10 years** of **experience** **creating developer-focused documentation**, **API references**, **user manuals**, and **onboarding guides**. My work encompasses enterprise platforms like **BrowserStack**, **Red Hat OpenShift**, and **Ivanti’s AI-powered ITSM** system. I specialize in constructing scalable, self-service documentation systems that alleviate support demands and expedite product adoption. In addition to traditional documentation, I also **produce multimedia content**—including **videos**, **demos**, and **blog posts**—to enhance learning and engagement across diverse user personas.
 
+📄 [View My Resume](https://github.com/rishumehra/portfolio/blob/main/resume.md) – A concise overview of my skills, experience, and qualifications as a Technical Writer.
+
 ---
 
 ## **📖 Technical Documentation**
