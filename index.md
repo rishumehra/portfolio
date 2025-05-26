@@ -77,9 +77,12 @@ I’m a passionate technical writer with over **10 years** of **experience** **c
 
 ## Tools & Tech Stack
 
-- Git, GitHub, Markdown, AsciiDoc, MadCap Flare, Visual Studio Code
-- JIRA, Confluence, Camtasia, SnagIt
-- HTML/CSS, REST APIs, Swagger
+- `Git`, `GitHub`, `Markdown`, `AsciiDoc`, `Madcap Flare`, `Visual Studio Code`
+- `JIRA`, `Azure DevOps`, `Confluence`, `Camtasia`, `SnagIt`
+- `HTML/CSS/JavaScript`, `REST APIs`, `Swagger`
+- `Style Guides`: `Google`, `Microsoft`, `IBM`, `Chicago`
+- `SaaS Workflows`, `Self-Service Help Center`, `Information Architecture`, `Developer Experience (DX)`, `Developer Portals`, `API Documentation`
+- `Linux`, `macOS`, `Windows`
 
 ---
 
