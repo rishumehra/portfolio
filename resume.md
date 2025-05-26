@@ -13,6 +13,8 @@ Technical Writer \| UX Writer \| API Documentation
 
 Experienced **Technical Writer** with over **10 years** of success in creating e**nterprise-grade documentation** for **APIs**, **SDKs**, **developer tools**, and **SaaS platforms**. Proven track record of building self-serve product documentation and developer docs from the ground up. Collaborated with engineering, product, and QA teams to simplify complex systems, reduce support tickets, and enable faster onboarding. Passionate about simplifying complex AI-powered workflows and building scalable developer experiences. Open to remote roles in the US and Canada.
 
+🔗 [Back to My Porfolio](index.md) – Explore my project highlights, writing samples, and documentation work.
+
 ---
 
 ## Key Skills
