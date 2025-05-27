@@ -5,7 +5,7 @@ Technical Writer \| UX Writer \| API Documentation
 
 📍 Bangalore, India \| Open to Remote (US/Canada)  
 
-📧 [rishu.techwriter@gmail.com](mailto:rishu.techwriter@gmail.com) \| [github.com/rishumehra](github.com/rishumehra) \| [linkedin.com/in/rishumehra](linkedin.com/in/rishumehra)
+[rishu.techwriter@gmail.com](mailto:rishu.techwriter@gmail.com) \| [github.com/rishumehra](github.com/rishumehra) \| [linkedin.com/in/rishumehra](linkedin.com/in/rishumehra)
 
 ---
 
