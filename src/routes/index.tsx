@@ -144,21 +144,24 @@ function Terminal() {
   );
 }
 
-function LogoItem({ item, size = "h-7" }: { item: { name: string; logo: string | null; kind: "img" | "text" }; size?: string }) {
-  if (item.kind === "img" && item.logo) {
-    return (
-      <img
-        src={item.logo}
-        alt={item.name}
-        title={item.name}
-        className={`logo-img ${size} w-auto object-contain`}
-      />
-    );
-  }
+function LogoItem({ item }: { item: { name: string; logo: string | null; kind: "img" | "text" } }) {
   return (
-    <span className={`logo-img font-display font-bold text-sm tracking-tight ${size} flex items-center`} title={item.name}>
-      {item.name}
-    </span>
+    <div className="flex flex-col items-center gap-2 min-w-[90px]">
+      <div className="h-8 flex items-center justify-center">
+        {item.kind === "img" && item.logo ? (
+          <img
+            src={item.logo}
+            alt={item.name}
+            className="logo-img h-8 w-auto object-contain max-w-[120px]"
+          />
+        ) : (
+          <span className="logo-img font-display font-bold text-sm tracking-tight flex items-center" title={item.name}>
+            {item.name}
+          </span>
+        )}
+      </div>
+      <span className="text-[10px] text-muted-foreground/70 text-center whitespace-nowrap">{item.name}</span>
+    </div>
   );
 }
 
