@@ -400,7 +400,7 @@ function Index() {
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             {earlierCareer.map(c => (
-              <LogoItem key={c.name} item={c} size="h-6" />
+              <LogoItem key={c.name} item={c} />
             ))}
           </div>
         </div>
