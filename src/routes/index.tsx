@@ -1,8 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   Zap, Building2, FileCode2, Globe2, BookOpen, Monitor, Settings,
-  ArrowUpRight, Mail, Linkedin, Github, Calendar, ArrowRight,
+  ArrowUpRight, Mail, Linkedin, Github, Calendar, ArrowRight, Download,
 } from "lucide-react";
+import rishuPrimary from "@/assets/rishu-primary.jpeg";
+import rishuSecondary from "@/assets/rishu-secondary.jpeg";
+import logoBrowserStack from "@/assets/logos/browserstack.svg";
+import logoRedHat from "@/assets/logos/redhat.svg";
+import logoSamsung from "@/assets/logos/samsung.svg";
+import logoSolarWinds from "@/assets/logos/solarwinds.svg";
+import logoAccenture from "@/assets/logos/accenture.svg";
+import logoBlueRock from "@/assets/logos/bluerock.png";
+import logoIttiam from "@/assets/logos/ittiam.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -16,7 +26,7 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" },
     ],
   }),
 });
@@ -28,7 +38,21 @@ const navLinks = [
   { label: "Tools", href: "#tools" },
 ];
 
-const companies = ["Red Hat", "BrowserStack", "Ivanti", "SolarWinds", "Accenture", "Samsung / TechM", "BlueRock Security"];
+// Companies strip — official logos, exact order
+const heroCompanies = [
+  { name: "BlueRock Security", logo: logoBlueRock, kind: "img" as const },
+  { name: "Ivanti", logo: null, kind: "text" as const },
+  { name: "BrowserStack", logo: logoBrowserStack, kind: "img" as const },
+  { name: "Red Hat", logo: logoRedHat, kind: "img" as const },
+  { name: "Samsung", logo: logoSamsung, kind: "img" as const },
+  { name: "Ittiam Systems", logo: logoIttiam, kind: "img" as const },
+];
+
+const earlierCareer = [
+  { name: "SolarWinds", logo: logoSolarWinds, kind: "img" as const },
+  { name: "Accenture", logo: logoAccenture, kind: "img" as const },
+  { name: "Publicis Sapient", logo: null, kind: "text" as const },
+];
 
 const services = [
   { icon: Zap, title: "API & SDK Docs", desc: "REST APIs, SDKs, CLI references — structured for developers who need to move fast and hate ambiguity.", tag: "OpenAPI · Swagger" },
@@ -65,13 +89,93 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-primary">{children}</div>;
 }
 
+// ── Terminal ─────────────────────────────────────────────────────────────
+type TermLine = { text: string; cls?: string };
+const termLines: TermLine[] = [
+  { text: "$ whoami", cls: "text-[#4F6EF7]" },
+  { text: "Lead Technical Writer", cls: "text-[#86efac]" },
+  { text: "" },
+  { text: "$ cat experience.txt", cls: "text-[#4F6EF7]" },
+  { text: "10+ years | API · SDK · Developer Docs", cls: "text-[#86efac]" },
+  { text: "" },
+  { text: "$ cat companies.txt", cls: "text-[#4F6EF7]" },
+  { text: "BlueRock → Ivanti → BrowserStack →", cls: "text-[#86efac]" },
+  { text: "Red Hat → Samsung → Ittiam", cls: "text-[#86efac]" },
+  { text: "" },
+  { text: "$ git status", cls: "text-[#4F6EF7]" },
+  { text: "On branch: available-for-hire", cls: "text-[#86efac]" },
+  { text: "Your profile is ready to ship. ✓", cls: "text-[#86efac]" },
+];
+
+function Terminal() {
+  const [visible, setVisible] = useState(0);
+  useEffect(() => {
+    if (visible >= termLines.length) return;
+    const delay = termLines[visible].text === "" ? 120 : 280;
+    const t = setTimeout(() => setVisible(v => v + 1), delay);
+    return () => clearTimeout(t);
+  }, [visible]);
+
+  return (
+    <div className="rounded-xl overflow-hidden border border-border bg-terminal terminal-glow">
+      {/* Chrome */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5 bg-black/30">
+        <span className="size-3 rounded-full bg-[#ff5f56]" />
+        <span className="size-3 rounded-full bg-[#ffbd2e]" />
+        <span className="size-3 rounded-full bg-[#27c93f]" />
+        <span className="flex-1 text-center text-xs font-mono text-muted-foreground select-none">
+          rishu@techwriter: ~
+        </span>
+      </div>
+      {/* Body */}
+      <div className="font-mono text-[13px] leading-6 p-5 min-h-[340px]">
+        {termLines.slice(0, visible).map((l, i) => (
+          <div key={i} className={`terminal-line ${l.cls ?? "text-muted-foreground"}`}>
+            {l.text || "\u00A0"}
+          </div>
+        ))}
+        {visible >= termLines.length && (
+          <div className="text-[#4F6EF7] flex items-center">
+            <span>$&nbsp;</span><span className="blink-cursor h-4" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function LogoItem({ item, size = "h-7" }: { item: { name: string; logo: string | null; kind: "img" | "text" }; size?: string }) {
+  if (item.kind === "img" && item.logo) {
+    return (
+      <img
+        src={item.logo}
+        alt={item.name}
+        title={item.name}
+        className={`logo-img ${size} w-auto object-contain`}
+      />
+    );
+  }
+  return (
+    <span className={`logo-img font-display font-bold text-sm tracking-tight ${size} flex items-center`} title={item.name}>
+      {item.name}
+    </span>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen text-foreground">
       {/* NAV */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border backdrop-blur-xl bg-background/70">
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <a href="#" className="font-display text-2xl font-extrabold text-primary tracking-tight">RM</a>
+          <a href="#" className="flex items-center gap-3">
+            <img
+              src={rishuPrimary}
+              alt="Rishu Mehra"
+              className="size-9 rounded-full object-cover border border-border ring-1 ring-primary/40"
+            />
+            <span className="font-display font-bold text-sm hidden sm:inline">Rishu Mehra</span>
+          </a>
           <ul className="hidden md:flex items-center gap-9 text-sm text-muted-foreground">
             {navLinks.map(l => (
               <li key={l.href}><a href={l.href} className="hover:text-foreground transition-colors">{l.label}</a></li>
@@ -84,18 +188,27 @@ function Index() {
       </header>
 
       {/* HERO */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="hero-scanlines pt-32 pb-20 px-6">
         <div className="mx-auto max-w-7xl grid lg:grid-cols-[1.4fr_1fr] gap-16 items-start">
           <div className="fade-up">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5 text-xs">
-              <span className="relative flex size-2">
-                <span className="absolute inset-0 rounded-full bg-primary pulse-dot" />
-                <span className="absolute inset-0 rounded-full bg-primary opacity-60 animate-ping" />
-              </span>
-              <span className="text-muted-foreground">Available for new opportunities</span>
+            <div className="flex items-center gap-5 mb-7">
+              <img
+                src={rishuPrimary}
+                alt="Rishu Mehra"
+                className="size-16 rounded-full object-cover border border-border ring-2 ring-primary/40"
+              />
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5 text-xs">
+                <span className="relative flex size-2">
+                  <span className="absolute inset-0 rounded-full bg-primary pulse-dot" />
+                  <span className="absolute inset-0 rounded-full bg-primary opacity-60 animate-ping" />
+                </span>
+                <span className="text-muted-foreground">Available for new opportunities</span>
+              </div>
             </div>
 
-            <h1 className="mt-7 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight">
+            <div className="font-mono text-xs text-muted-foreground/70 mb-3">// Senior Technical Writer</div>
+
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight">
               Developer Docs<br />
               that <span className="text-primary">actually</span><br />
               ship products.
@@ -123,47 +236,37 @@ function Index() {
               <a href="#" className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-5 py-3 text-sm font-medium text-foreground hover:bg-surface transition">
                 GitHub <ArrowRight className="size-3.5" />
               </a>
+              <a href="#" className="inline-flex items-center gap-2 rounded-md border border-border bg-transparent px-5 py-3 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition">
+                Download Resume <Download className="size-3.5" />
+              </a>
             </div>
           </div>
 
-          {/* STATS CARD */}
-          <div className="gradient-border-top rounded-xl border border-border bg-surface p-2 fade-up" style={{ animationDelay: "0.15s" }}>
-            <ul className="divide-y divide-border">
-              {[
-                { icon: Zap, label: "Experience", val: "10+ Years in Technical Writing" },
-                { icon: Building2, label: "Companies", val: "7 Companies · Enterprise to Startup" },
-                { icon: FileCode2, label: "Specialisation", val: "API · SDK · Developer Docs · GUI" },
-                { icon: Globe2, label: "Availability", val: "Remote · Open to Relocation" },
-              ].map(s => (
-                <li key={s.label} className="flex items-start gap-4 px-5 py-5">
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-background">
-                    <s.icon className="size-4 text-primary" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">{s.label}</div>
-                    <div className="mt-1 font-display font-bold text-sm">{s.val}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+          {/* RIGHT COLUMN: Terminal + stats strip */}
+          <div className="fade-up space-y-4" style={{ animationDelay: "0.15s" }}>
+            <Terminal />
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-muted-foreground font-mono">
+              <span>⚡ 10+ Years</span>
+              <span className="text-border">·</span>
+              <span>🏢 7 Companies</span>
+              <span className="text-border">·</span>
+              <span>📄 API · SDK · Docs</span>
+              <span className="text-border">·</span>
+              <span>⚙️ Docs-as-Code</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* COMPANIES */}
-      <section className="border-y border-border py-8 px-6">
+      <section className="border-y border-border py-10 px-6">
         <div className="mx-auto max-w-7xl">
-          <div className="text-center text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground mb-6">
+          <div className="text-center text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground mb-8">
             Documentation shipped at
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-0 gap-y-3">
-            {companies.map((c, i) => (
-              <div key={c} className="flex items-center">
-                <span className="px-5 font-display font-bold text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default">
-                  {c}
-                </span>
-                {i < companies.length - 1 && <span className="h-4 w-px bg-border" />}
-              </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+            {heroCompanies.map(c => (
+              <LogoItem key={c.name} item={c} size="h-8" />
             ))}
           </div>
         </div>
@@ -220,7 +323,7 @@ function Index() {
 
       {/* HOW I WORK */}
       <section id="how-i-work" className="py-24 px-6">
-        <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16">
+        <div className="mx-auto max-w-7xl grid lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
           <div>
             <SectionLabel>How I Work</SectionLabel>
             <h2 className="mt-4 text-4xl md:text-5xl">End-to-end.<br />No handholding.</h2>
@@ -234,11 +337,21 @@ function Index() {
                 <span key={s} className="rounded-md border border-border bg-surface px-3 py-1.5 text-xs text-muted-foreground">{s}</span>
               ))}
             </div>
+
+            {/* Human photo */}
+            <div className="mt-10 relative max-w-xs">
+              <div className="rounded-2xl overflow-hidden border border-border rotate-[-2deg] shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
+                <img src={rishuSecondary} alt="Rishu Mehra, outdoors" className="w-full h-auto object-cover" />
+              </div>
+              <div className="mt-3 ml-2 font-mono text-[11px] text-muted-foreground">
+                // off-keyboard, recharging.
+              </div>
+            </div>
           </div>
           <ol className="space-y-px">
             {steps.map(s => (
               <li key={s.n} className="border-t border-border py-6 grid grid-cols-[auto_1fr] gap-6 last:border-b">
-                <span className="font-display font-bold text-primary text-sm pt-1">{s.n}</span>
+                <span className="font-mono font-bold text-primary text-sm pt-1">{s.n}</span>
                 <div>
                   <h3 className="font-display font-bold text-lg">{s.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
@@ -263,7 +376,9 @@ function Index() {
                 <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">{t.label}</div>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {t.items.map(i => (
-                    <span key={i} className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs text-muted-foreground">{i}</span>
+                    <code key={i} className="rounded-md border border-border bg-black/40 px-2 py-1 text-[12px] font-mono text-cyan-accent">
+                      {i}
+                    </code>
                   ))}
                 </div>
               </div>
@@ -272,11 +387,29 @@ function Index() {
         </div>
       </section>
 
+      {/* EARLIER CAREER */}
+      <section className="py-14 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground/80">Earlier Career</div>
+          <p className="mt-3 text-sm text-muted-foreground/80 max-w-xl mx-auto">
+            Before specialising in developer documentation, I worked across
+            technical content and communication at:
+          </p>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {earlierCareer.map(c => (
+              <LogoItem key={c.name} item={c} size="h-6" />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CONTACT */}
-      <section id="contact" className="py-28 px-6">
+      <section id="contact" className="py-24 px-6">
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel><span className="inline-block w-full text-center">Contact</span></SectionLabel>
-          <h2 className="mt-4 text-4xl md:text-6xl">Let's build something worth reading.</h2>
+          <h2 className="mt-4 text-4xl md:text-6xl">
+            Let's build something worth reading.<span className="blink-cursor h-[0.8em] align-baseline" />
+          </h2>
           <p className="mt-6 text-muted-foreground max-w-xl mx-auto">
             The docs need to ship — remote or on-site, I show up where the product needs me.
             Open to full-time and contract engagements globally.
@@ -301,8 +434,14 @@ function Index() {
       {/* FOOTER */}
       <footer className="border-t border-border py-8 px-6">
         <div className="mx-auto max-w-7xl flex flex-col md:flex-row gap-3 items-center justify-between text-xs text-muted-foreground">
-          <div className="font-display font-extrabold text-xl text-primary">RM</div>
-          <div>© 2026 Rishu Mehra · Lead Technical Writer</div>
+          <div className="flex items-center gap-2">
+            <img src={rishuPrimary} alt="" className="size-7 rounded-full object-cover border border-border" />
+            <span className="font-display font-bold">Rishu Mehra</span>
+          </div>
+          <div className="text-center">
+            <div>© 2026 Rishu Mehra · Lead Technical Writer</div>
+            <div className="font-mono text-[11px] text-muted-foreground/60 mt-1">{`/* built with coffee and Markdown */`}</div>
+          </div>
           <div>Available remotely · Open to relocation</div>
         </div>
       </footer>
