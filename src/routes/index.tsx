@@ -399,16 +399,25 @@ function Index() {
       </section>
 
       {/* EARLIER CAREER */}
-      <section className="py-14 px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground/80">Earlier Career</div>
-          <p className="mt-3 text-sm text-muted-foreground/80 max-w-xl mx-auto">
+      <section className="relative py-20 px-6 border-y border-border/60 bg-gradient-to-b from-primary/[0.04] via-secondary/[0.03] to-transparent overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.35] [background-image:radial-gradient(circle_at_1px_1px,hsl(var(--border))_1px,transparent_0)] [background-size:22px_22px]" />
+        <div className="relative mx-auto max-w-4xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 backdrop-blur px-3 py-1">
+            <span className="size-1.5 rounded-full bg-secondary animate-pulse" />
+            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-foreground/80">
+              <span className="text-muted-foreground">$</span> cat ./earlier-career.log
+            </span>
+          </div>
+          <h3 className="mt-5 font-display text-2xl md:text-3xl font-bold">
+            Where the <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">story</span> started
+          </h3>
+          <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
             Before specialising in developer documentation, I worked across
             technical content and communication at:
           </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
             {earlierCareer.map(c => (
-              <LogoItem key={c.name} item={c} />
+              <LogoItem key={c.name} item={c} size="sm" />
             ))}
           </div>
         </div>
