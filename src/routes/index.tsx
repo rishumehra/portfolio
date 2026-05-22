@@ -144,23 +144,31 @@ function Terminal() {
   );
 }
 
-function LogoItem({ item }: { item: { name: string; logo: string | null; kind: "img" | "text" } }) {
+function LogoItem({ item, size = "md" }: { item: { name: string; logo: string | null; kind: "img" | "text" }; size?: "sm" | "md" | "lg" }) {
+  const boxH = size === "lg" ? "h-14" : size === "sm" ? "h-7" : "h-12";
+  const imgH = size === "lg" ? "h-14" : size === "sm" ? "h-7" : "h-12";
+  const maxW = size === "lg" ? "max-w-[200px]" : size === "sm" ? "max-w-[110px]" : "max-w-[170px]";
+  const textSize = size === "lg" ? "text-2xl" : size === "sm" ? "text-sm" : "text-xl";
+  const minW = size === "lg" ? "min-w-[140px]" : size === "sm" ? "min-w-[90px]" : "min-w-[120px]";
+  // Samsung wordmark is wide & thin — boost it so it reads at the same optical weight
+  const isSamsung = item.name.toLowerCase() === "samsung";
+  const samsungBoost = isSamsung ? "scale-[1.45]" : "";
   return (
-    <div className="flex flex-col items-center gap-2 min-w-[90px]">
-      <div className="h-8 flex items-center justify-center">
+    <div className={`flex flex-col items-center gap-2.5 ${minW}`}>
+      <div className={`${boxH} flex items-center justify-center`}>
         {item.kind === "img" && item.logo ? (
           <img
             src={item.logo}
             alt={item.name}
-            className="logo-img h-8 w-auto object-contain max-w-[120px]"
+            className={`logo-img ${imgH} w-auto object-contain ${maxW} ${samsungBoost}`}
           />
         ) : (
-          <span className="logo-img font-display font-bold text-sm tracking-tight flex items-center" title={item.name}>
+          <span className={`logo-img font-display font-bold ${textSize} tracking-tight flex items-center`} title={item.name}>
             {item.name}
           </span>
         )}
       </div>
-      <span className="text-[10px] text-muted-foreground/70 text-center whitespace-nowrap">{item.name}</span>
+      <span className="text-[10px] text-muted-foreground/70 text-center whitespace-nowrap tracking-wider uppercase">{item.name}</span>
     </div>
   );
 }
