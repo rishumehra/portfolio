@@ -269,7 +269,7 @@ function Index() {
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
             {heroCompanies.map(c => (
-              <LogoItem key={c.name} item={c} size="h-8" />
+              <LogoItem key={c.name} item={c} />
             ))}
           </div>
         </div>
