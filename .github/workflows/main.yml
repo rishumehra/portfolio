@@ -31,25 +31,18 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Static Production Bundle
-        run: bunx vinxi build
+      - name: Build Production Client Assets
+        run: bunx vite build --outDir dist
         env:
           VITE_APP_BASE_PATH: /portfolio/
 
       - name: Fix for GitHub Pages (SPA Routing)
-        run: |
-          mkdir -p .output/public
-          if [ -d "dist/client" ]; then
-            cp -r dist/client/* .output/public/ || true
-          elif [ -d "dist" ]; then
-            cp -r dist/* .output/public/ || true
-          fi
-          cp .output/public/index.html .output/public/404.html || true
+        run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .output/public
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         id: deployment
