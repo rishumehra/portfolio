@@ -31,18 +31,30 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Static Production Bundle
-        run: bunx vite build
+      - name: Build Static SPA
+        run: bun run build
         env:
           VITE_APP_BASE_PATH: /portfolio/
+          NITRO_PRESET: github-pages
 
       - name: Fix for GitHub Pages (SPA Routing)
-        run: cp dist/index.html dist/404.html || cp dist/client/index.html dist/client/404.html
+        run: |
+          if [ -d "dist/client" ]; then
+            cp dist/client/index.html dist/client/404.html
+          elif [ -d "dist" ]; then
+            cp dist/index.html dist/404.html
+          elif [ -d ".output/public" ]; then
+            cp .output/public/index.html .output/public/404.html
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: |
+            dist/client
+            dist
+            .output/public
+          if-no-files-found: error
 
       - name: Deploy to GitHub Pages
         id: deployment
