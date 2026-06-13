@@ -13,6 +13,7 @@ import logoSolarWinds from "@/assets/logos/solarwinds.svg";
 import logoAccenture from "@/assets/logos/accenture.svg";
 import logoBlueRock from "@/assets/logos/bluerock.png";
 import logoIttiam from "@/assets/logos/ittiam.png";
+import logoIvanti from "@/assets/logos/ivanti.jpeg";
 
 export const Route = createFileRoute("/")({
   component: Index,
