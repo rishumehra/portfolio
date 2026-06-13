@@ -42,7 +42,7 @@ const navLinks = [
 // Companies strip — official logos, exact order
 const heroCompanies = [
   { name: "BlueRock Security", logo: logoBlueRock, kind: "img" as const },
-  { name: "Ivanti", logo: null, kind: "text" as const },
+  { name: "Ivanti", logo: logoIvanti, kind: "img" as const },
   { name: "BrowserStack", logo: logoBrowserStack, kind: "img" as const },
   { name: "Red Hat", logo: logoRedHat, kind: "img" as const },
   { name: "Samsung", logo: logoSamsung, kind: "img" as const },
