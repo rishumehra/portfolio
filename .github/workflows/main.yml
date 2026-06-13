@@ -31,18 +31,18 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build SPA Client
-        run: bun run build
+      - name: Build Static Production Bundle
+        run: bunx vite build
         env:
           VITE_APP_BASE_PATH: /portfolio/
 
       - name: Fix for GitHub Pages (SPA Routing)
-        run: cp dist/client/index.html dist/client/404.html
+        run: cp dist/index.html dist/404.html || cp dist/client/index.html dist/client/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/client
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         id: deployment
