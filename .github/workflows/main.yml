@@ -31,23 +31,29 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Production Bundle
+      - name: Build Static Production Bundle
         run: bun run build
+        env:
+          VITE_APP_BASE_PATH: /portfolio/
+          CLOUDFLARE_PAGES: 0
+          NODE_ENV: production
 
       - name: Fix for GitHub Pages (SPA Routing)
         run: |
-          mkdir -p dist
-          if [ -d "dist/client" ]; then
-            cp -r dist/client/* dist/ || true
-          elif [ -d ".output/public" ]; then
-            cp -r .output/public/* dist/ || true
+          mkdir -p final_dist
+          if [ -d ".output/public" ]; then
+            cp -r .output/public/* final_dist/
+          elif [ -d "dist/client" ]; then
+            cp -r dist/client/* final_dist/
+          elif [ -d "dist" ]; then
+            cp -r dist/* final_dist/
           fi
-          cp dist/index.html dist/404.html || true
+          cp final_dist/index.html final_dist/404.html || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./final_dist
 
       - name: Deploy to GitHub Pages
         id: deployment
