@@ -13,7 +13,8 @@ import logoSolarWinds from "@/assets/logos/solarwinds.svg";
 import logoAccenture from "@/assets/logos/accenture.svg";
 import logoBlueRock from "@/assets/logos/bluerock.png";
 import logoIttiam from "@/assets/logos/ittiam.png";
-import logoIvanti from "@/assets/logos/ivanti.jpeg";
+import logoIvanti from "@/assets/logos/ivanti.png";
+import logoPublicisSapient from "@/assets/logos/publicissapient.svg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -52,7 +53,7 @@ const heroCompanies = [
 const earlierCareer = [
   { name: "SolarWinds", logo: logoSolarWinds, kind: "img" as const },
   { name: "Accenture", logo: logoAccenture, kind: "img" as const },
-  { name: "Publicis Sapient", logo: null, kind: "text" as const },
+  { name: "Publicis Sapient", logo: logoPublicisSapient, kind: "img" as const },
 ];
 
 const services = [
@@ -146,14 +147,14 @@ function Terminal() {
 }
 
 function LogoItem({ item, size = "md" }: { item: { name: string; logo: string | null; kind: "img" | "text" }; size?: "sm" | "md" | "lg" }) {
-  const boxH = size === "lg" ? "h-14" : size === "sm" ? "h-7" : "h-12";
-  const imgH = size === "lg" ? "h-14" : size === "sm" ? "h-7" : "h-12";
-  const maxW = size === "lg" ? "max-w-[200px]" : size === "sm" ? "max-w-[110px]" : "max-w-[170px]";
-  const textSize = size === "lg" ? "text-2xl" : size === "sm" ? "text-sm" : "text-xl";
-  const minW = size === "lg" ? "min-w-[140px]" : size === "sm" ? "min-w-[90px]" : "min-w-[120px]";
-  // Samsung wordmark is wide & thin — boost it so it reads at the same optical weight
+  const boxH = size === "lg" ? "h-20" : size === "sm" ? "h-12" : "h-16";
+  const imgH = size === "lg" ? "h-20" : size === "sm" ? "h-12" : "h-16";
+  const maxW = size === "lg" ? "max-w-[240px]" : size === "sm" ? "max-w-[160px]" : "max-w-[210px]";
+  const textSize = size === "lg" ? "text-3xl" : size === "sm" ? "text-lg" : "text-2xl";
+  const minW = size === "lg" ? "min-w-[170px]" : size === "sm" ? "min-w-[130px]" : "min-w-[150px]";
+  // Samsung wordmark is wide & thin — boost so it matches optical weight of others
   const isSamsung = item.name.toLowerCase() === "samsung";
-  const samsungBoost = isSamsung ? "scale-[1.45]" : "";
+  const samsungBoost = isSamsung ? "scale-[1.55]" : "";
   return (
     <div className={`flex flex-col items-center gap-2.5 ${minW}`}>
       <div className={`${boxH} flex items-center justify-center`}>
