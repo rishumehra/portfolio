@@ -26,13 +26,18 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm install
 
-      - name: Build
+      - name: Build SPA Client
         run: npm run build
+        env:
+          VITE_APP_BASE_PATH: /portfolio/
+
+      - name: Fix for GitHub Pages (SPA Routing)
+        run: cp dist/client/index.html dist/client/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
