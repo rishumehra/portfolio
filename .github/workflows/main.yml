@@ -31,16 +31,16 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Static Production Bundle
+      - name: Build Pure SPA Static Site
         run: bun run build
         env:
           VITE_APP_BASE_PATH: /portfolio/
-          NITRO_PRESET: static
+          NITRO_PRESET: github-pages
 
-      - name: Fix for GitHub Pages (SPA Routing & Assets)
+      - name: Force Harvest Static Assets
         run: |
           mkdir -p final_dist
-          # 1. Framework compiles static assets into .output/public for Vinxi Static Preset
+          # Pull assets from whichever directory Vinxi dumped them into
           if [ -d ".output/public" ]; then
             cp -r .output/public/* final_dist/
           elif [ -d "dist/client" ]; then
@@ -49,10 +49,8 @@ jobs:
             cp -r dist/* final_dist/
           fi
           
-          # 2. Prevent GitHub Pages Jekyll from blocking underscore folders (_chunks, _assets)
+          # Inject bypass for Jekyll and add dynamic SPA routing fallbacks
           touch final_dist/.nojekyll
-          
-          # 3. Create fallback for client-side routing to avoid 404 on refresh
           cp final_dist/index.html final_dist/404.html || true
 
       - name: Upload artifact
