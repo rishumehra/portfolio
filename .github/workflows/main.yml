@@ -35,12 +35,12 @@ jobs:
         run: bun run build
         env:
           VITE_APP_BASE_PATH: /portfolio/
-          CLOUDFLARE_PAGES: 0
-          NODE_ENV: production
+          NITRO_PRESET: static
 
-      - name: Fix for GitHub Pages (SPA Routing)
+      - name: Fix for GitHub Pages (SPA Routing & Assets)
         run: |
           mkdir -p final_dist
+          # 1. Framework compiles static assets into .output/public for Vinxi Static Preset
           if [ -d ".output/public" ]; then
             cp -r .output/public/* final_dist/
           elif [ -d "dist/client" ]; then
@@ -48,6 +48,11 @@ jobs:
           elif [ -d "dist" ]; then
             cp -r dist/* final_dist/
           fi
+          
+          # 2. Prevent GitHub Pages Jekyll from blocking underscore folders (_chunks, _assets)
+          touch final_dist/.nojekyll
+          
+          # 3. Create fallback for client-side routing to avoid 404 on refresh
           cp final_dist/index.html final_dist/404.html || true
 
       - name: Upload artifact
