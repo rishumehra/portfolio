@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Syne", sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "DM Sans", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius-sm: calc(var(--radius) - 4px);
@@ -80,8 +80,8 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.025em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -161,14 +161,16 @@
   }
   .fade-up { animation: fade-up 0.7s ease-out both; }
 
-  /* Logo treatment: grayscale → full color on hover */
+  /* Logo treatment: full color, subtle zoom on hover */
   .logo-img {
-    filter: grayscale(1) brightness(1.4) contrast(0.9);
-    opacity: 0.55;
-    transition: filter 0.3s ease, opacity 0.3s ease;
+    filter: none;
+    opacity: 0.95;
+    transition: transform 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+    will-change: transform;
   }
   .logo-img:hover {
-    filter: grayscale(0) brightness(1) contrast(1);
     opacity: 1;
+    transform: scale(1.12);
+    filter: drop-shadow(0 4px 12px rgba(79, 110, 247, 0.35));
   }
 }

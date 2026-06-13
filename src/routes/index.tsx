@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" },
     ],
   }),
 });
@@ -427,8 +427,9 @@ function Index() {
       <section id="contact" className="py-24 px-6">
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel><span className="inline-block w-full text-center">Contact</span></SectionLabel>
-          <h2 className="mt-4 text-4xl md:text-6xl">
-            Let's build something worth reading.<span className="blink-cursor h-[0.8em] align-baseline" />
+          <h2 className="mt-4 text-4xl md:text-6xl leading-[1.05]">
+            <span className="block">Let's build something.</span>
+            <span className="block">worth reading.<span className="blink-cursor h-[0.8em] align-baseline" /></span>
           </h2>
           <p className="mt-6 text-muted-foreground max-w-xl mx-auto">
             The docs need to ship — remote or on-site, I show up where the product needs me.
