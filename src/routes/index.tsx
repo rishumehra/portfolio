@@ -13,6 +13,7 @@ import logoSolarWinds from "@/assets/logos/solarwinds.svg";
 import logoAccenture from "@/assets/logos/accenture.svg";
 import logoBlueRock from "@/assets/logos/bluerock.png";
 import logoIttiam from "@/assets/logos/ittiam.png";
+import logoIvanti from "@/assets/logos/ivanti.jpeg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -41,7 +42,7 @@ const navLinks = [
 // Companies strip — official logos, exact order
 const heroCompanies = [
   { name: "BlueRock Security", logo: logoBlueRock, kind: "img" as const },
-  { name: "Ivanti", logo: null, kind: "text" as const },
+  { name: "Ivanti", logo: logoIvanti, kind: "img" as const },
   { name: "BrowserStack", logo: logoBrowserStack, kind: "img" as const },
   { name: "Red Hat", logo: logoRedHat, kind: "img" as const },
   { name: "Samsung", logo: logoSamsung, kind: "img" as const },
@@ -428,7 +429,7 @@ function Index() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel><span className="inline-block w-full text-center">Contact</span></SectionLabel>
           <h2 className="mt-4 text-4xl md:text-6xl leading-[1.05]">
-            <span className="block">Let's build something.</span>
+            <span className="block">Let's build something</span>
             <span className="block">worth reading.<span className="blink-cursor h-[0.8em] align-baseline" /></span>
           </h2>
           <p className="mt-6 text-muted-foreground max-w-xl mx-auto">
