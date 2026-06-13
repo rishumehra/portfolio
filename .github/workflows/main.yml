@@ -31,17 +31,20 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Static SPA
-        run: bun run build
+      - name: Build Static Production Bundle
+        run: bunx vinxi build
         env:
           VITE_APP_BASE_PATH: /portfolio/
-          NITRO_PRESET: github-pages
 
       - name: Fix for GitHub Pages (SPA Routing)
         run: |
-          if [ -d ".output/public" ]; then
-            cp .output/public/index.html .output/public/404.html
+          mkdir -p .output/public
+          if [ -d "dist/client" ]; then
+            cp -r dist/client/* .output/public/ || true
+          elif [ -d "dist" ]; then
+            cp -r dist/* .output/public/ || true
           fi
+          cp .output/public/index.html .output/public/404.html || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
