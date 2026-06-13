@@ -31,25 +31,21 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build Pure SPA Static Site
-        run: bun run build
+      - name: Build Pure Client SPA
+        run: bunx vite build
         env:
           VITE_APP_BASE_PATH: /portfolio/
-          NITRO_PRESET: github-pages
 
-      - name: Force Harvest Static Assets
+      - name: Fix for GitHub Pages (SPA Routing)
         run: |
           mkdir -p final_dist
-          # Pull assets from whichever directory Vinxi dumped them into
-          if [ -d ".output/public" ]; then
-            cp -r .output/public/* final_dist/
-          elif [ -d "dist/client" ]; then
+          if [ -d "dist/client" ]; then
             cp -r dist/client/* final_dist/
           elif [ -d "dist" ]; then
             cp -r dist/* final_dist/
+          elif [ -d ".output/public" ]; then
+            cp -r .output/public/* final_dist/
           fi
-          
-          # Inject bypass for Jekyll and add dynamic SPA routing fallbacks
           touch final_dist/.nojekyll
           cp final_dist/index.html final_dist/404.html || true
 
